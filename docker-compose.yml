@@ -1,0 +1,56 @@
+version: '2.4'
+
+services:
+  octoprint-ender3:
+    image: octoprint/octoprint
+    restart: unless-stopped
+    ports:
+      - 8000:80
+    device_cgroup_rules:
+    # allow access to serial devices
+      - 'c 188:* rmw'
+    volumes:
+     - octoprint-ender3:/octoprint
+     - /dev:/dev
+    # uncomment the lines below to ensure camera streaming is enabled when
+    # you add a video device
+    #environment:
+    #  - ENABLE_MJPG_STREAMER=true
+  octoprint-anet-a8:
+    image: octoprint/octoprint
+    restart: unless-stopped
+    ports:
+      - 8001:80
+    device_cgroup_rules:
+    # allow access to serial devices
+      - 'c 188:* rmw'
+    volumes:
+     - octoprint-anet-a8:/octoprint
+     - /dev:/dev
+    # uncomment the lines below to ensure camera streaming is enabled when
+    # you add a video device
+    #environment:
+    #  - ENABLE_MJPG_STREAMER=true
+
+  ####
+  # uncomment if you wish to edit the configuration files of octoprint
+  # refer to docs on configuration editing for more information
+  ####
+
+  #config-editor:
+  #  image: linuxserver/code-server
+  #  ports:
+  #    - 8443:8443
+  #  depends_on:
+  #    - octoprint
+  #  restart: unless-stopped
+  #  environment:
+  #    - PUID=0
+  #    - PGID=0
+  #    - TZ=America/Chicago
+  #  volumes:
+  #    - octoprint:/octoprint
+
+volumes:
+  octoprint-ender3:
+  octoprint-anet-a8:
