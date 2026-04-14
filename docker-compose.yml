@@ -2,7 +2,7 @@ version: '2.4'
 
 services:
   octoprint-ender3:
-    image: octoprint/octoprint
+    image: octoprint/octoprint:latest
     restart: unless-stopped
     ports:
       - 8000:80
@@ -17,7 +17,7 @@ services:
     #environment:
     #  - ENABLE_MJPG_STREAMER=true
   octoprint-anet-a8:
-    image: octoprint/octoprint
+    image: octoprint/octoprint:latest
     restart: unless-stopped
     ports:
       - 8001:80
